@@ -14,10 +14,9 @@ jobs:
       - name: Run tests
         run: |
           swift test --enable-code-coverage
-          COD_COV=$(swift test --enable-code-coverage --show-codecov-path)
       - uses: codecov/codecov-action@v2
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          file: $COD_COV
+          file: ./.build/x86_64-apple-macosx/debug/codecov/DependencyInjection.json
           flags: unittests
           name: codecov-umbrella
