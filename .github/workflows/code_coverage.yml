@@ -1,4 +1,4 @@
-name: Code coverage
+name: Swift
 
 on:
   push:
@@ -7,18 +7,16 @@ on:
     branches: [main]
 
 jobs:
-  codecov:
-    container:
-      image: swift:5.4
+  build:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
       - name: Run tests
         run: swift test --enable-code-coverage --show-codecov-path
         id: run_tests
-      - name: Codecov
-        uses: codecov/codecov-action@v2.0.3
+      - uses: codecov/codecov-action@v2
         with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ${{join(steps.run_tests.outputs.*, ',')}}
           flags: unittests
-          file: ${{steps.run_tests.outputs}}
-          os: macos
+          name: codecov-umbrella
