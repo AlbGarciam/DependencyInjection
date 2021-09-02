@@ -12,13 +12,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Run tests
-        run: COVERAGE_FILE=$(swift test --enable-code-coverage --show-codecov-path)
-        id: run_tests
+        run: swift test --enable-code-coverage --show-codecov-path
       - name: Print
-        run: echo $COVERAGE_FILE
+        run: ls -la /Users/runner/work/DependencyInjection/DependencyInjection/.build/x86_64-apple-macosx/debug/codecov
       - uses: codecov/codecov-action@v2
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          file: $COVERAGE_FILE
+          file: /Users/runner/work/DependencyInjection/DependencyInjection/.build/x86_64-apple-macosx/debug/codecov/DependencyInjection.json
           flags: unittests
           name: codecov-umbrella
