@@ -12,7 +12,7 @@ DependencyInjection allows you to define the dependencies of your app. It expose
 * `shared`: Resolves the instance and allows it to be reused if it is needed on another object
 * `global`: The instance will act as a singleton
 
-## Usage
+## 🏗 Usage
 
 There are two separate steps when using `DependencyInjection`
 
