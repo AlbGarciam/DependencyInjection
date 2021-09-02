@@ -13,7 +13,10 @@ jobs:
       - uses: actions/checkout@v2
       - name: Run tests
         run: |
+          pwd
+          ls -la
           COD_COV=$(swift test --enable-code-coverage --show-codecov-path)
+          ls -la
           cat $COD_COV
           echo '::set-env name=COD_COV::$COD_COV'
       - uses: codecov/codecov-action@v2
