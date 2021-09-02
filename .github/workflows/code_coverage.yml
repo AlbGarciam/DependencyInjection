@@ -17,6 +17,6 @@ jobs:
       - uses: codecov/codecov-action@v2
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: ${{join(steps.run_tests.outputs.*, ',')}}
+          files: /Users/runner/work/DependencyInjection/DependencyInjection/.build/x86_64-apple-macosx/debug/codecov/DependencyInjection.json
           flags: unittests
           name: codecov-umbrella
