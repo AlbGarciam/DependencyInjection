@@ -13,11 +13,12 @@ jobs:
       - uses: actions/checkout@v2
       - name: Run tests
         run: |
-          swift test --enable-code-coverage --show-codecov-path
-          cat ./.build/x86_64-apple-macosx/debug/codecov/DependencyInjection.json
+          COD_COV=$(swift test --enable-code-coverage --show-codecov-path)
+          cat $COD_COV
+          echo '::set-env name=COD_COV::$COD_COV'
       - uses: codecov/codecov-action@v2
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./.build/x86_64-apple-macosx/debug/codecov/DependencyInjection.json
+          file: $COD_COV
           flags: unittests
           name: codecov-umbrella
