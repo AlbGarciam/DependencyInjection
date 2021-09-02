@@ -1,4 +1,4 @@
-# 🗺 DependencyInjection
+# 💉 DependencyInjection
 A library to inject your dependencies via property wrappers
 
 [![Github](https://img.shields.io/badge/contact-%40AlbGarciam-blue)](http://github.com/AlbGarciam)
