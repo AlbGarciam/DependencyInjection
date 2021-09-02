@@ -13,7 +13,12 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
-      - run: swift test --enable-test-discovery --enable-code-coverage
-      - uses: mattpolzin/swift-codecov-action@0.6.0
+      - name: Run tests
+        run: swift test --enable-code-coverage --show-codecov-path
+        id: run_tests
+      - name: Codecov
+        uses: codecov/codecov-action@v2.0.3
         with:
-          MINIMUM_COVERAGE: 98
+          flags: unittests
+          file: ${{steps.run_tests.outputs}}
+          os: macos
