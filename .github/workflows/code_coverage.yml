@@ -15,7 +15,7 @@ jobs:
         run: swift test --enable-code-coverage --show-codecov-path
         id: run_tests
       - name: Print
-        run: ${{steps.run_tests.outputs}}
+        run: echo ${{steps.run_tests.outputs}}
       - uses: codecov/codecov-action@v2
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
