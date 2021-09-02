@@ -12,13 +12,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Run tests
-        run: swift test --enable-code-coverage --show-codecov-path
+        run: COVERAGE_FILE=$(swift test --enable-code-coverage --show-codecov-path)
         id: run_tests
       - name: Print
-        run: echo ${{steps.run_tests.outputs}}
+        run: echo $COVERAGE_FILE
       - uses: codecov/codecov-action@v2
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          file: ${{steps.run_tests.outputs}}
+          file: $COVERAGE_FILE
           flags: unittests
           name: codecov-umbrella
