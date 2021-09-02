@@ -14,10 +14,10 @@ jobs:
       - name: Run tests
         run: swift test --enable-code-coverage --show-codecov-path
       - name: Print
-        run: ls -la /Users/runner/work/DependencyInjection/DependencyInjection/.build/x86_64-apple-macosx/debug/codecov
+        run: ls -la ./DependencyInjection/.build/x86_64-apple-macosx/debug/codecov
       - uses: codecov/codecov-action@v2
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
-          file: /Users/runner/work/DependencyInjection/DependencyInjection/.build/x86_64-apple-macosx/debug/codecov/DependencyInjection.json
+          file: ./DependencyInjection/.build/x86_64-apple-macosx/debug/codecov/DependencyInjection.json
           flags: unittests
           name: codecov-umbrella
