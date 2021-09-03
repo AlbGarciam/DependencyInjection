@@ -4,6 +4,7 @@ A library to inject your dependencies via property wrappers
 [![Github](https://img.shields.io/badge/contact-%40AlbGarciam-blue)](http://github.com/AlbGarciam)
 [![Swift](https://img.shields.io/badge/swift-5-orange)](https://swift.org)
 [![Swift Package Manager](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-4BC51D.svg?style=flat)](https://swift.org/package-manager)
+[![codecov](https://codecov.io/gh/AlbGarciam/DependencyInjection/branch/main/graph/badge.svg?token=W10GG4Q53X)](https://codecov.io/gh/AlbGarciam/DependencyInjection)
 
 ## 🌟 Features
 
