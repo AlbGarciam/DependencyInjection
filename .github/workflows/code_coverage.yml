@@ -1,0 +1,23 @@
+name: Code coverage
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run tests
+        run: |
+          swift test --enable-code-coverage --enable-test-discovery
+          xcrun llvm-cov export -format="lcov" .build/debug/DependencyInjectionPackageTests.xctest/Contents/MacOS/DependencyInjectionPackageTests -instr-profile .build/debug/codecov/default.profdata > info.lcov
+      - uses: codecov/codecov-action@v2
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: info.lcov
+          flags: unittests
+          name: codecov-umbrella
