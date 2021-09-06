@@ -10,10 +10,10 @@ import XCTest
 @testable import DependencyInjection
 
 class InjectedTests: XCTestCase {
-    let module = Module {
-        Module.instance(TypeAContract.self, TypeA.self)
-        Module.shared(TypeBContract.self, TypeB.self)
-        Module.global(TypeCContract.self, TypeC.self)
+    let module: Module = {
+        instance(TypeAContract.self, TypeA.self)
+        shared(TypeBContract.self, TypeB.self)
+        global(TypeCContract.self, TypeC.self)
     }
 
     @Injected private var instanceA: TypeAContract
