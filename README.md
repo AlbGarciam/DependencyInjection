@@ -20,10 +20,10 @@ There are two separate steps when using `DependencyInjection`
 ### Register dependecies
 
 ```swift
-let module = Module {
-    Module.instance(TypeAContract.self, TypeA.self)
-    Module.shared(TypeBContract.self, TypeB.self)
-    Module.global(TypeCContract.self, TypeC.self)
+let module: Module = {
+    instance(TypeAContract.self, TypeA.self)
+    shared(TypeBContract.self, TypeB.self)
+    global(TypeCContract.self, TypeC.self)
 }
 
 startInjection {
