@@ -23,6 +23,8 @@ public struct Injected<Dependency> {
                 fatalError(error.localizedDescription)
             }
         }
+
+        set { dependency = newValue }
     }
 
     public init() {}
