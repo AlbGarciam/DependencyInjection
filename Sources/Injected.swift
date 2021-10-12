@@ -19,10 +19,9 @@ public struct Injected<Dependency> {
                 let instance: Dependency = try resolve()
                 self.dependency = instance
                 return instance
-            } catch let error as DependencyInjectionError {
-                fatalError(error.description)
             } catch {
-                fatalError(error.localizedDescription)
+                let errorMessage = (error as? DependencyInjectionError)?.description ?? error.localizedDescription
+                fatalError(errorMessage)
             }
         }
 

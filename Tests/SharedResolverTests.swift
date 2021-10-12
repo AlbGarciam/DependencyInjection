@@ -28,6 +28,11 @@ class SharedResolverTests: XCTestCase {
         SharedResolver.reset()
     }
 
+    func testResolveOptionalContractRaisesError() throws {
+        SharedResolver.register(TypeFContract?.self, TypeF_B.self)
+        XCTAssertThrowsError(try SharedResolver.resolve(TypeFContract?.self))
+    }
+
     func testRegisterSingleInstance() throws {
         XCTAssertNoThrow(try SharedResolver.resolve(TypeAContract.self))
         XCTAssertTrue(try SharedResolver.resolve(TypeAContract.self) is TypeA)

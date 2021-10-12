@@ -28,6 +28,11 @@ class GlobalResolverTests: XCTestCase {
         GlobalResolver.reset()
     }
 
+    func testResolveOptionalContractRaisesError() throws {
+        GlobalResolver.register(TypeFContract?.self, TypeF_B.self)
+        XCTAssertThrowsError(try GlobalResolver.resolve(TypeFContract?.self))
+    }
+
     func testRegisterSingleInstance() throws {
         XCTAssertNoThrow(try GlobalResolver.resolve(TypeAContract.self))
         XCTAssertTrue(try GlobalResolver.resolve(TypeAContract.self) is TypeA)
