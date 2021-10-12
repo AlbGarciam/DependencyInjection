@@ -41,8 +41,8 @@ extension ResolverContract {
     }
 
     static func getMapKeyFor(_ type: Any) throws -> String {
-        let key = String(reflecting: type)
-        let regex = try! NSRegularExpression(pattern: "^(Swift.Optional<).*(>)$") // Must succeed
+        let key = String(describing: type)
+        let regex = try! NSRegularExpression(pattern: "^(Optional<).*(>)$") // Must succeed
         let range = NSRange(location: 0, length: key.utf16.count)
         if regex.firstMatch(in: key, options: [], range: range) != nil {
             throw DependencyInjectionError.nullableInjection(type)
