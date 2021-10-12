@@ -11,14 +11,16 @@ struct InstanceResolver: ResolverContract {
     private static var single: [String: [Injectable.Type]] = [:]
 
     static func register<T: Injectable>(_ type: Any, _ implementation: T.Type) {
-        let key = String(reflecting: type.self)
+        guard let key = try? getMapKeyFor(type) else {
+            return
+        }
         var classes = single[key] ?? []
         classes.append(implementation)
         single[key] = classes
     }
 
     static func resolve<T>(_ type: T.Type) throws -> T! {
-        let key = String(reflecting: type.self)
+        let key = try getMapKeyFor(T.self)
         if let contracts = single[key] {
             return try resolveBestMatch(contracts)
         }

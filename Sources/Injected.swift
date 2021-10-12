@@ -19,6 +19,8 @@ public struct Injected<Dependency> {
                 let instance: Dependency = try resolve()
                 self.dependency = instance
                 return instance
+            } catch let error as DependencyInjectionError {
+                fatalError(error.description)
             } catch {
                 fatalError(error.localizedDescription)
             }
@@ -30,9 +32,10 @@ public struct Injected<Dependency> {
     public init() {}
 
     private func resolve<T>() throws -> T {
-        guard let instance = try InstanceResolver.resolve(T.self) ??
+
+        guard let instance = try GlobalResolver.resolve(T.self) ??
                                  SharedResolver.resolve(T.self) ??
-                                 GlobalResolver.resolve(T.self) else {
+                                 InstanceResolver.resolve(T.self) else {
             throw DependencyInjectionError.missingImplementation(T.self)
         }
         return instance

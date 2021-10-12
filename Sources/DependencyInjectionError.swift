@@ -12,6 +12,7 @@ enum DependencyInjectionError: Error, CustomStringConvertible {
     case multiplePrimaryImplementation(_ type: Any)
     case multipleDefaultImplementation(_ type: Any)
     case missingImplementation(_ type: Any)
+    case nullableInjection(_ type: Any)
 
     var description: String {
         switch self {
@@ -23,6 +24,8 @@ enum DependencyInjectionError: Error, CustomStringConvertible {
             return "Multiple Defaults registered for the same type: \(type)"
         case .missingImplementation(let type):
             return "Missing implementation for type: \(type)"
+        case .nullableInjection(let type):
+            return "Nullable injected type: \(type). This is not supported"
         }
     }
 }

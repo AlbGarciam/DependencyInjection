@@ -12,14 +12,16 @@ struct SharedResolver: ResolverContract {
     private static var weakReferences = NSMapTable<NSString, AnyObject>.strongToWeakObjects()
 
     static func register<T: Injectable>(_ type: Any, _ implementation: T.Type) {
-        let key = String(reflecting: type.self)
+        guard let key = try? getMapKeyFor(type) else {
+            return
+        }
         var classes = single[key] ?? []
         classes.append(implementation)
         single[key] = classes
     }
 
     static func resolve<T>(_ type: T.Type) throws -> T! {
-        let key = String(reflecting: type.self)
+        let key = try getMapKeyFor(T.self)
         if let instance = weakReferences.object(forKey: key as NSString) as? T {
             return instance
         } else if let contracts = single[key],
