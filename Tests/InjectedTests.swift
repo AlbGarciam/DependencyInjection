@@ -26,7 +26,7 @@ class InjectedTests: XCTestCase {
         }
     }
 
-    func testInstances() throws {
+    func testInstances() {
         XCTAssertTrue(instanceA is TypeA)
         XCTAssertTrue(instanceB is TypeB)
         XCTAssertTrue(instanceC is TypeC)

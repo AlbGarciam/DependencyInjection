@@ -28,8 +28,12 @@ class InstanceResolverTests: XCTestCase {
         InstanceResolver.reset()
     }
 
-    func testRegisterSingleInstance() throws {
+    func testResolveOptionalContractRaisesError() throws {
+        InstanceResolver.register(TypeFContract?.self, TypeF_B.self)
+        XCTAssertThrowsError(try InstanceResolver.resolve(TypeFContract?.self))
+    }
 
+    func testRegisterSingleInstance() throws {
         XCTAssertNoThrow(try InstanceResolver.resolve(TypeAContract.self))
         XCTAssertTrue(try InstanceResolver.resolve(TypeAContract.self) is TypeA)
     }
