@@ -10,10 +10,13 @@ import XCTest
 @testable import DependencyInjection
 
 final class Module: ModuleContract {
+    static var called = false
+
     static func get() {
         instance(TypeXContract.self, TypeX.self)
         shared(TypeYContract.self, TypeY.self)
         global(TypeZContract.self, TypeZ.self)
+        called = true
     }
 }
 
