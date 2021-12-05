@@ -18,6 +18,5 @@ class RuntimeTests: XCTestCase {
         XCTAssertFalse(Module.called)
         Runtime.loadModules()
         XCTAssertTrue(Module.called)
-        XCTAssertEqual(Runtime.status, .loaded)
     }
 }
