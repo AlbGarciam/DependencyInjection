@@ -25,10 +25,6 @@ class GlobalResolverTests: XCTestCase {
         GlobalResolver.register(TypeFContract.self, TypeF_B.self)
     }
 
-    override func tearDown() {
-        GlobalResolver.reset()
-    }
-
     func testResolveOptionalContractRaisesError() throws {
         GlobalResolver.register(TypeFContract?.self, TypeF_B.self)
         XCTAssertThrowsError(try GlobalResolver.resolve(TypeFContract?.self))

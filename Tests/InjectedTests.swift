@@ -11,47 +11,33 @@ import XCTest
 
 final class Module: ModuleContract {
     static func get() {
-        instance(TypeAContract.self, TypeA.self)
-        shared(TypeBContract.self, TypeB.self)
-        global(TypeCContract.self, TypeC.self)
+        instance(TypeXContract.self, TypeX.self)
+        shared(TypeYContract.self, TypeY.self)
+        global(TypeZContract.self, TypeZ.self)
     }
 }
 
 class InjectedTests: XCTestCase {
-    @Injected private var instanceA: TypeAContract
-    @Injected private var instanceB: TypeBContract
-    @Injected private var instanceC: TypeCContract
+    @Injected private var instanceX: TypeXContract
+    @Injected private var instanceY: TypeYContract
+    @Injected private var instanceZ: TypeZContract
 
     func testInstances() {
-        XCTAssertTrue(instanceA is TypeA)
-        XCTAssertTrue(instanceB is TypeB)
-        XCTAssertTrue(instanceC is TypeC)
+        XCTAssertTrue(instanceX is TypeX)
+        XCTAssertTrue(instanceY is TypeY)
+        XCTAssertTrue(instanceZ is TypeZ)
     }
 
     func testSameInstances() throws {
-        XCTAssertEqual(ObjectIdentifier(instanceA as AnyObject), ObjectIdentifier(instanceA as AnyObject))
+        XCTAssertEqual(ObjectIdentifier(instanceX as AnyObject), ObjectIdentifier(instanceX as AnyObject))
     }
 }
 
-fileprivate protocol TypeAContract: Injectable {}
-fileprivate final class TypeA: TypeAContract {}
+fileprivate protocol TypeXContract: Injectable {}
+fileprivate final class TypeX: TypeXContract {}
 
-fileprivate protocol TypeBContract: Injectable {}
-fileprivate final class TypeB: TypeBContract {}
-fileprivate final class TypeB_B: TypeBContract {}
+fileprivate protocol TypeYContract: Injectable {}
+fileprivate final class TypeY: TypeYContract {}
 
-fileprivate protocol TypeCContract: Injectable {}
-fileprivate final class TypeC: TypeCContract, Mock {}
-fileprivate final class TypeC_B: TypeCContract, Mock {}
-
-fileprivate protocol TypeDContract: Injectable {}
-fileprivate final class TypeD: TypeDContract, Primary {}
-fileprivate final class TypeD_B: TypeDContract, Primary {}
-
-fileprivate protocol TypeEContract: Injectable {}
-fileprivate final class TypeE: TypeEContract, Primary {}
-fileprivate final class TypeE_B: TypeEContract, Mock {}
-
-fileprivate protocol TypeFContract: Injectable {}
-fileprivate final class TypeF: TypeFContract, Primary {}
-fileprivate final class TypeF_B: TypeFContract {}
+fileprivate protocol TypeZContract: Injectable {}
+fileprivate final class TypeZ: TypeZContract, Mock {}

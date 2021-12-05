@@ -25,10 +25,6 @@ class InstanceResolverTests: XCTestCase {
         InstanceResolver.register(TypeFContract.self, TypeF_B.self)
     }
 
-    override func tearDown() {
-        InstanceResolver.reset()
-    }
-
     func testResolveOptionalContractRaisesError() throws {
         InstanceResolver.register(TypeFContract?.self, TypeF_B.self)
         XCTAssertThrowsError(try InstanceResolver.resolve(TypeFContract?.self))

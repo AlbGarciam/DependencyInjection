@@ -25,10 +25,6 @@ class SharedResolverTests: XCTestCase {
         SharedResolver.register(TypeFContract.self, TypeF_B.self)
     }
 
-    override func tearDown() {
-        SharedResolver.reset()
-    }
-
     func testResolveOptionalContractRaisesError() throws {
         SharedResolver.register(TypeFContract?.self, TypeF_B.self)
         XCTAssertThrowsError(try SharedResolver.resolve(TypeFContract?.self))
