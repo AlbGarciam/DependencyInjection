@@ -24,10 +24,13 @@ class InjectedTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
+        Runtime.status = .loaded
         InstanceResolver.reset()
+        InstanceResolver.register(TypeXContract.self, TypeX.self)
         SharedResolver.reset()
+        SharedResolver.register(TypeYContract.self, TypeY.self)
         GlobalResolver.reset()
-        Runtime.status = .initial
+        GlobalResolver.register(TypeZContract.self, TypeZ.self)
     }
 
     func testInstances() {
