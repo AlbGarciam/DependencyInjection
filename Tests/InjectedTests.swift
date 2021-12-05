@@ -22,6 +22,14 @@ class InjectedTests: XCTestCase {
     @Injected private var instanceY: TypeYContract
     @Injected private var instanceZ: TypeZContract
 
+    override func setUp() {
+        super.setUp()
+        Runtime.status = .initial
+        GlobalResolver.reset()
+        InstanceResolver.reset()
+        SharedResolver.reset()
+    }
+
     func testInstances() {
         XCTAssertTrue(instanceX is TypeX)
         XCTAssertTrue(instanceY is TypeY)

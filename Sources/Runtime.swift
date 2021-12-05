@@ -7,12 +7,12 @@
 
 import Foundation
 
-private enum RuntimeStatus {
+enum RuntimeStatus {
     case initial, loading, loaded
 }
 
 final class Runtime {
-    private static var status: RuntimeStatus = .initial
+    static var status: RuntimeStatus = .initial
     static func loadModules() {
         guard status == .initial else {
             return
