@@ -11,6 +11,7 @@ import XCTest
 
 class InstanceResolverTests: XCTestCase {
     override func setUp() {
+        InstanceResolver.reset()
         InstanceResolver.register(TypeAContract.self, TypeA.self)
         InstanceResolver.register(TypeBContract.self, TypeB.self)
         InstanceResolver.register(TypeBContract.self, TypeB_B.self)

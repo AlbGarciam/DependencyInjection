@@ -9,22 +9,18 @@ import XCTest
 
 @testable import DependencyInjection
 
-class InjectedTests: XCTestCase {
-    let module: Module = {
+final class Module: ModuleContract {
+    static func get() {
         instance(TypeAContract.self, TypeA.self)
         shared(TypeBContract.self, TypeB.self)
         global(TypeCContract.self, TypeC.self)
     }
+}
 
+class InjectedTests: XCTestCase {
     @Injected private var instanceA: TypeAContract
     @Injected private var instanceB: TypeBContract
     @Injected private var instanceC: TypeCContract
-
-    override func setUp() {
-        startInjection {
-            registerModules(module)
-        }
-    }
 
     func testInstances() {
         XCTAssertTrue(instanceA is TypeA)

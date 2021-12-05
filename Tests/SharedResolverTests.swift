@@ -11,6 +11,7 @@ import XCTest
 
 class SharedResolverTests: XCTestCase {
     override func setUp() {
+        SharedResolver.reset()
         SharedResolver.register(TypeAContract.self, TypeA.self)
         SharedResolver.register(TypeBContract.self, TypeB.self)
         SharedResolver.register(TypeBContract.self, TypeB_B.self)

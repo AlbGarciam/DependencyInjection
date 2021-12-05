@@ -11,6 +11,7 @@ import XCTest
 
 class GlobalResolverTests: XCTestCase {
     override func setUp() {
+        GlobalResolver.reset()
         GlobalResolver.register(TypeAContract.self, TypeA.self)
         GlobalResolver.register(TypeBContract.self, TypeB.self)
         GlobalResolver.register(TypeBContract.self, TypeB_B.self)

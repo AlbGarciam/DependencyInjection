@@ -19,15 +19,17 @@ There are two separate steps when using `DependencyInjection`
 
 ### Register dependecies
 
-```swift
-let module: Module = {
-    instance(TypeAContract.self, TypeA.self)
-    shared(TypeBContract.self, TypeB.self)
-    global(TypeCContract.self, TypeC.self)
-}
+Starting on version `1.0.0` `DependencyInjection` makes use of Obj-C runtime to search the injection modules across the final module once the first injection is requested.
 
-startInjection {
-    registerModules(module)
+In order to declare your module you have to declare a class that conforms to `ModuleContract` and call it `Module`. Once this is done, `DependencyInjection` will consider it when building the injection structure as explained before.
+
+```swift
+final class Module: ModuleContract {
+    static func get() {
+        instance(TypeAContract.self, TypeA.self)
+        shared(TypeBContract.self, TypeB.self)
+        global(TypeCContract.self, TypeC.self)
+    }
 }
 ```
 
