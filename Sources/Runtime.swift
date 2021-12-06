@@ -30,4 +30,8 @@ final class Runtime {
             moduleType?.get()
         }
     }
+
+    static func reset() {
+        status = .initial
+    }
 }

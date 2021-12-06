@@ -1,5 +1,13 @@
 import Foundation
 
+/// Finalizes injection. From this point all resolvers won't contain any reference to any type
+public func stopInjection() {
+    Runtime.reset()
+    SharedResolver.reset()
+    GlobalResolver.reset()
+    InstanceResolver.reset()
+}
+
 /// Registers an element to be unique across the entire app lifecycle
 /// - Parameters:
 ///   - type: Contract the object is going to conform

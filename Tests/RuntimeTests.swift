@@ -11,7 +11,8 @@ import XCTest
 
 class RuntimeTests: XCTestCase {
     override func setUp() {
-        Runtime.status = .initial
+        stopInjection()
+        Module.called = false
     }
 
     func testRuntimeCallsAllGet() throws {
