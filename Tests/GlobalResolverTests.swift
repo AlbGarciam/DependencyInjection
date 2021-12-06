@@ -11,6 +11,7 @@ import XCTest
 
 class GlobalResolverTests: XCTestCase {
     override func setUp() {
+        stopInjection()
         GlobalResolver.register(TypeAContract.self, TypeA.self)
         GlobalResolver.register(TypeBContract.self, TypeB.self)
         GlobalResolver.register(TypeBContract.self, TypeB_B.self)
@@ -22,10 +23,6 @@ class GlobalResolverTests: XCTestCase {
         GlobalResolver.register(TypeEContract.self, TypeE_B.self)
         GlobalResolver.register(TypeFContract.self, TypeF.self)
         GlobalResolver.register(TypeFContract.self, TypeF_B.self)
-    }
-
-    override func tearDown() {
-        GlobalResolver.reset()
     }
 
     func testResolveOptionalContractRaisesError() throws {

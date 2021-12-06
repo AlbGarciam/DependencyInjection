@@ -31,7 +31,7 @@ public struct Injected<Dependency> {
     public init() {}
 
     private func resolve<T>() throws -> T {
-
+        Runtime.loadModules()
         guard let instance = try GlobalResolver.resolve(T.self) ??
                                  SharedResolver.resolve(T.self) ??
                                  InstanceResolver.resolve(T.self) else {

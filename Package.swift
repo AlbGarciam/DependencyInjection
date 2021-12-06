@@ -9,6 +9,6 @@ let package = Package(
     ],
     targets: [
         .target(name: "DependencyInjection", path: "Sources"),
-        .testTarget(name: "DependencyInjectionTests", dependencies: ["DependencyInjection"], path: "Tests")
+        .testTarget(name: "DependencyInjectionPackageTests", dependencies: ["DependencyInjection"], path: "Tests")
     ]
 )

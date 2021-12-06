@@ -11,6 +11,7 @@ import XCTest
 
 class SharedResolverTests: XCTestCase {
     override func setUp() {
+        stopInjection()
         SharedResolver.register(TypeAContract.self, TypeA.self)
         SharedResolver.register(TypeBContract.self, TypeB.self)
         SharedResolver.register(TypeBContract.self, TypeB_B.self)
@@ -22,10 +23,6 @@ class SharedResolverTests: XCTestCase {
         SharedResolver.register(TypeEContract.self, TypeE_B.self)
         SharedResolver.register(TypeFContract.self, TypeF.self)
         SharedResolver.register(TypeFContract.self, TypeF_B.self)
-    }
-
-    override func tearDown() {
-        SharedResolver.reset()
     }
 
     func testResolveOptionalContractRaisesError() throws {

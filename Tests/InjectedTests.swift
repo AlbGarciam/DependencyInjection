@@ -9,53 +9,39 @@ import XCTest
 
 @testable import DependencyInjection
 
-class InjectedTests: XCTestCase {
-    let module: Module = {
-        instance(TypeAContract.self, TypeA.self)
-        shared(TypeBContract.self, TypeB.self)
-        global(TypeCContract.self, TypeC.self)
-    }
+final class Module: ModuleContract {
+    static var called = false
 
-    @Injected private var instanceA: TypeAContract
-    @Injected private var instanceB: TypeBContract
-    @Injected private var instanceC: TypeCContract
-
-    override func setUp() {
-        startInjection {
-            registerModules(module)
-        }
-    }
-
-    func testInstances() {
-        XCTAssertTrue(instanceA is TypeA)
-        XCTAssertTrue(instanceB is TypeB)
-        XCTAssertTrue(instanceC is TypeC)
-    }
-
-    func testSameInstances() throws {
-        XCTAssertEqual(ObjectIdentifier(instanceA as AnyObject), ObjectIdentifier(instanceA as AnyObject))
+    static func get() {
+        instance(TypeXContract.self, TypeX.self)
+        shared(TypeYContract.self, TypeY.self)
+        global(TypeZContract.self, TypeZ.self)
+        called = true
     }
 }
 
-fileprivate protocol TypeAContract: Injectable {}
-fileprivate final class TypeA: TypeAContract {}
+class InjectedTests: XCTestCase {
+    @Injected private var instanceX: TypeXContract
+    @Injected private var instanceY: TypeYContract
+    @Injected private var instanceZ: TypeZContract
 
-fileprivate protocol TypeBContract: Injectable {}
-fileprivate final class TypeB: TypeBContract {}
-fileprivate final class TypeB_B: TypeBContract {}
+    func testInstances() {
+        stopInjection()
+        XCTAssertTrue(instanceX is TypeX)
+        XCTAssertTrue(instanceY is TypeY)
+        XCTAssertTrue(instanceZ is TypeZ)
+    }
 
-fileprivate protocol TypeCContract: Injectable {}
-fileprivate final class TypeC: TypeCContract, Mock {}
-fileprivate final class TypeC_B: TypeCContract, Mock {}
+    func testSameInstances() throws {
+        XCTAssertEqual(ObjectIdentifier(instanceX as AnyObject), ObjectIdentifier(instanceX as AnyObject))
+    }
+}
 
-fileprivate protocol TypeDContract: Injectable {}
-fileprivate final class TypeD: TypeDContract, Primary {}
-fileprivate final class TypeD_B: TypeDContract, Primary {}
+fileprivate protocol TypeXContract: Injectable {}
+fileprivate final class TypeX: TypeXContract {}
 
-fileprivate protocol TypeEContract: Injectable {}
-fileprivate final class TypeE: TypeEContract, Primary {}
-fileprivate final class TypeE_B: TypeEContract, Mock {}
+fileprivate protocol TypeYContract: Injectable {}
+fileprivate final class TypeY: TypeYContract {}
 
-fileprivate protocol TypeFContract: Injectable {}
-fileprivate final class TypeF: TypeFContract, Primary {}
-fileprivate final class TypeF_B: TypeFContract {}
+fileprivate protocol TypeZContract: Injectable {}
+fileprivate final class TypeZ: TypeZContract, Mock {}
