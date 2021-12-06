@@ -10,12 +10,9 @@ import XCTest
 @testable import DependencyInjection
 
 class RuntimeTests: XCTestCase {
-    override func setUp() {
+    func testRuntimeCallsAllGet() throws {
         stopInjection()
         Module.called = false
-    }
-
-    func testRuntimeCallsAllGet() throws {
         XCTAssertFalse(Module.called)
         Runtime.loadModules()
         XCTAssertTrue(Module.called)

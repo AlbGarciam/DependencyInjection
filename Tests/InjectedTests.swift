@@ -25,12 +25,8 @@ class InjectedTests: XCTestCase {
     @Injected private var instanceY: TypeYContract
     @Injected private var instanceZ: TypeZContract
 
-    override func setUp() {
-        super.setUp()
-        stopInjection()
-    }
-
     func testInstances() {
+        stopInjection()
         XCTAssertTrue(instanceX is TypeX)
         XCTAssertTrue(instanceY is TypeY)
         XCTAssertTrue(instanceZ is TypeZ)
