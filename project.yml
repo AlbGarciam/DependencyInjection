@@ -1,0 +1,41 @@
+include:
+  - configuration.yml
+name: DependencyInjection
+options:
+  deploymentTarget:
+    watchOS: "9.0"
+    iOS: "16.0"
+  xcodeVersion: "14.0"
+  createIntermediateGroups: true
+  tabWidth: 4
+  minimumXcodeGenVersion: "2.24.0"
+  bundleIdPrefix: com.mobile.pacer
+settings:
+  base:
+    SWIFT_VERSION: 5.7.1
+    OTHER_LDFLAGS: $(inherited) -ObjC
+    OTHER_SWIFT_FLAGS: $(inherited)
+    GENERATE_INFOPLIST_FILE: YES
+    CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED: YES
+    DEBUG_INFORMATION_FORMAT: "dwarf-with-dsym"
+    BUILD_LIBRARY_FOR_DISTRIBUTION: YES
+    DEAD_CODE_STRIPPING: YES
+    APPLICATION_EXTENSION_API_ONLY: NO
+targets:
+  DependencyInjection:
+    type: framework
+    platform: macOS
+    deploymentTarget:
+      - iOS: 13.0
+      - macOS: 11.0
+      - watchOS: 8.0
+    sources: ./Sources
+    settings:
+      base:
+        SUPPORTED_PLATFORMS: iphonesimulator iphoneos watchos watchsimulator appletvos appletvsimulator macosx
+        ALLOW_TARGET_PLATFORM_SPECIALIZATION: YES
+        PRODUCT_BUNDLE_IDENTIFIER: com.mobile.pacer.dependencyInjection
+        APPLICATION_EXTENSION_API_ONLY: NO
+        ARCHS:
+          - $(ARCHS_STANDARD)
+          - armv7k
