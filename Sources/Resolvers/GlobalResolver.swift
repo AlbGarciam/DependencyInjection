@@ -8,7 +8,7 @@
 import Foundation
 
 struct GlobalResolver: ResolverContract {
-    private static let queue = DispatchQueue(label: "global-resolver", attributes: .concurrent)
+    private static let mutex = NSRecursiveLock()
     private static var single: [String: [Injectable.Type]] = [:]
     private static var references: [String: AnyObject] = [:]
 
@@ -16,7 +16,7 @@ struct GlobalResolver: ResolverContract {
         guard let key = try? getMapKeyFor(type) else {
             return
         }
-        queue.sync(flags: .barrier) {
+        mutex.withLock {
             var classes = single[key] ?? []
             classes.append(implementation)
             single[key] = classes
@@ -25,22 +25,24 @@ struct GlobalResolver: ResolverContract {
 
     static func resolve<T>(_ type: T.Type) throws -> T! {
         let key = try getMapKeyFor(T.self)
-        if let instance: T = getReference(key) {
-            return instance
-        } else if let contracts = getRegisteredTypes(key),
-                  let instance: T = try resolveBestMatch(contracts) {
-            queue.sync(flags: .barrier) { references[key] = instance as AnyObject }
-            return instance
+        return try mutex.withLock {
+            if let instance: T = getReference(key) {
+                return instance
+            } else if let contracts = getRegisteredTypes(key),
+                      let instance: T = try resolveBestMatch(contracts) {
+                mutex.withLock { references[key] = instance as AnyObject }
+                return instance
+            }
+            return nil
         }
-        return nil
     }
     
     private static func getReference<T>(_ key: String) -> T? {
-        queue.sync { references[key] as? T }
+        mutex.withLock { references[key] as? T }
     }
     
     private static func getRegisteredTypes(_ key: String) -> [Injectable.Type]? {
-        queue.sync { single[key] }
+        mutex.withLock { single[key] }
     }
 
     static func reset() {
